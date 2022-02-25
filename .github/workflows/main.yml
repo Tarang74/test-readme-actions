@@ -1,0 +1,22 @@
+name: README Continuous Integration
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check repository
+        uses: actions/checkout@v2
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17
+      
+      - run: npm ci
+
+      - name: Update README
+        run: node lib/index.js
