@@ -1,0 +1,12 @@
+name: 'README Updater'
+description: 'Update README based on source files'
+author: 'Tarang Janawalkar'
+
+inputs:
+  GITHUB_TOKEN: 
+    description: 'GitHub token'
+    required: true
+
+runs:
+  using: 'node16'
+  main: 'lib/index.js'
