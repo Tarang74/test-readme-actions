@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 17
       
-      - run: npm ci
+      - run: pnpm ci
 
       - name: Update README
         run: node lib/index.js
