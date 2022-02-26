@@ -31,3 +31,5 @@ jobs:
           
       - name: Update README
         uses: ./
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
