@@ -1,5 +1,5 @@
-name: 'README Updater'
-description: 'Update README based on source files'
+name: 'README updater action for TeX projects'
+description: 'Update README using TeX source code'
 author: 'Tarang Janawalkar'
 
 inputs:
