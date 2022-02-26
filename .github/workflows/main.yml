@@ -4,9 +4,6 @@ on:
   push:
     branches: [master]
 
-inputs:
-  repoToken: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,3 +31,5 @@ jobs:
 
       - name: Update README
         run: node lib/index.js
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
