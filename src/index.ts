@@ -5,7 +5,7 @@ async function run() {
     try {
         // Get client and context
         const client = github.getOctokit(
-            core.getInput('repo-token', { required: true })
+            core.getInput('repoToken', { required: true })
         );
         const context = github.context;
 
