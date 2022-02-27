@@ -1,4 +1,4 @@
-name: 'README updater action for TeX projects'
+name: 'README Updater'
 description: 'Update README using TeX source code'
 author: 'Tarang Janawalkar'
 

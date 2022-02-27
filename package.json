@@ -3,7 +3,7 @@
     "type": "module",
     "version": "1.0.0",
     "description": "Actions to update README for QUT Notes",
-    "main": "src/index.js",
+    "main": "lib/index.js",
     "scripts": {
         "build": "tsc"
     },
