@@ -28,6 +28,6 @@ jobs:
           run_install: true
           
       - name: Update README
-        uses: ../action.yml
+        uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
