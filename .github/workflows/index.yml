@@ -13,6 +13,8 @@ jobs:
 
       - name: Use Node.js
         uses: actions/setup-node
+        with:
+          node-version: latest
 
       - name: Cache pnpm modules
         uses: actions/cache
