@@ -1,8 +1,8 @@
 {
-    "name": "readme-actions",
+    "name": "readme-ci-qut-notes",
     "type": "module",
     "version": "1.0.0",
-    "description": "Actions to update README for QUT Notes",
+    "description": "Continuous Integration to update the README file for QUT Notes.",
     "main": "lib/index.js",
     "scripts": {
         "build": "tsc"
