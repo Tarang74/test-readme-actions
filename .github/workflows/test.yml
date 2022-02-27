@@ -22,7 +22,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-
 
-      - uses: pnpm/action-setup@v2
+      - name: Setup actions with pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: latest
           run_install: true
