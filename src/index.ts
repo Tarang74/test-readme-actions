@@ -46,22 +46,35 @@ async function run() {
             getInput('GITHUB_TOKEN', { required: true })
         );
 
-        // Look for lecture notes/exam notes files
-        const LectureNotes = await client.request('GET /repos/{owner}/{repo}/contents/{path}',
-            {
-                owner: context.actor,
-                repo: context.payload.repository!.name,
-                path: `${context.payload.repository!.name} Lecture Notes.tex`,
-                ref: context.sha
-            });
+        let LectureNotes;
+        let ExamNotes;
 
-        const ExamNotes = await client.request('GET /repos/{owner}/{repo}/contents/{path}',
-            {
-                owner: context.actor,
-                repo: context.payload.repository!.name,
-                path: `${context.payload.repository!.name} Exam Notes.tex`,
-                ref: context.sha
-            });
+        // Look for lecture notes/exam notes files
+        try {
+            LectureNotes = await client.request('GET /repos/{owner}/{repo}/contents/{path}',
+                {
+                    owner: context.actor,
+                    repo: context.payload.repository!.name,
+                    path: `${context.payload.repository!.name} Lecture Notes.tex`,
+                    ref: context.sha
+                });
+        } catch (error: any) {
+            console.log(error);
+            return;
+        }
+
+        try {
+            ExamNotes = await client.request('GET /repos/{owner}/{repo}/contents/{path}',
+                {
+                    owner: context.actor,
+                    repo: context.payload.repository!.name,
+                    path: `${context.payload.repository!.name} Exam Notes.tex`,
+                    ref: context.sha
+                });
+        } catch (error: any) {
+            console.log(error);
+            return;
+        }
 
         let LN = true;
         let EN = true;
@@ -154,13 +167,13 @@ function parseLectureNotesContents(s: string) {
     }
 }
 
-function getAuthors():string {
+function getAuthors(): string {
     return '';
 }
 
 function getSections(sections: Array<string>): string {
     return '';
-} 
+}
 
 function setCopyrightInformation(copyrightModifier: string, copyrightVersion: string): string {
     copyrightModifier = copyrightModifier.toLowerCase();
