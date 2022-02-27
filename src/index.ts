@@ -2,19 +2,19 @@ import { error, getInput, info, setFailed, warning } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 
 // Template placeholders for README
-let CONTRIBUTORS: string;
+let CONTRIBUTORS = '';
 
-let UNIT_CODE: string;
-let UNIT_NAME: string;
-let UNIT_COORDINATOR: string;
+let UNIT_CODE = '';
+let UNIT_NAME = '';
+let UNIT_COORDINATOR = '';
 
-let SEMESTER: number;
-let YEAR: number;
+let SEMESTER = '';
+let YEAR = '';
 
-let CONTENTS: string;
-let WHICH_NOTES: string;
+let CONTENTS = '';
+let WHICH_NOTES = '';
 
-let COPYRIGHT: string;
+let COPYRIGHT = '';
 
 async function run() {
     try {
@@ -225,8 +225,8 @@ export function parseLectureNotesContents(s: string) {
             // console.log('UNIT_NAME:', UNIT_NAME);
         } else if (v.startsWith("\\newcommand{\\unitTime}")) {
             let time = v.slice(23).split("}")[0];
-            SEMESTER = parseInt(time[9]);
-            YEAR = parseInt(time.slice(12));
+            SEMESTER = time[9];
+            YEAR = time.slice(12);
             // console.log('SEMESTER:', SEMESTER);
             // console.log('YEAR:', YEAR);
         } else if (v.startsWith("\\newcommand{\\unitCoordinator}")) {
