@@ -107,20 +107,18 @@ async function run() {
         if (LectureNotes == undefined)
             return error('Lecture notes returned undefined.');
 
-        let buffer = Buffer.from(LectureNotes.data.toString(), 'base64');
-        console.log(buffer.toString('base64'));
+        console.log(LectureNotes.data.toString());
+        parseLectureNotesContents(LectureNotes.data.toString());
 
-        parseLectureNotesContents(buffer.toString('base64'));
-
-        console.log('UNIT_CODE:', UNIT_CODE);
-        console.log('UNIT_NAME:', UNIT_NAME);
-        console.log('UNIT_COORDINATOR:', UNIT_COORDINATOR);
-        console.log('SEMESTER:', SEMESTER);
-        console.log('YEAR:', YEAR);
-        console.log('CONTRIBUTORS:', CONTRIBUTORS);
-        console.log('WHICH_NOTES:', WHICH_NOTES);
-        console.log('CONTENTS:', CONTENTS);
-        console.log('COPYRIGHT:', COPYRIGHT);
+        // console.log('UNIT_CODE:', UNIT_CODE);
+        // console.log('UNIT_NAME:', UNIT_NAME);
+        // console.log('UNIT_COORDINATOR:', UNIT_COORDINATOR);
+        // console.log('SEMESTER:', SEMESTER);
+        // console.log('YEAR:', YEAR);
+        // console.log('CONTRIBUTORS:', CONTRIBUTORS);
+        // console.log('WHICH_NOTES:', WHICH_NOTES);
+        // console.log('CONTENTS:', CONTENTS);
+        // console.log('COPYRIGHT:', COPYRIGHT);
 
         let output = `# ${UNIT_CODE} - ${UNIT_NAME}
 
