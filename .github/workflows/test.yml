@@ -28,10 +28,10 @@ jobs:
           version: 6.0.2
           run_install: true
 
-      - name: Echo directory contents
-        run: ls -R -I node_modules
+      # - name: Echo directory contents
+      #   run: ls -R -I node_modules
         
-      # - name: Update README
-      #   uses: ./
-      #   with:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update README
+        uses: ~/action.yml
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
