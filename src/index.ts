@@ -115,6 +115,10 @@ ${CONTENTS}---
 
 ${COPYRIGHT}`;
 
+        console.log('---');
+        console.log(output);
+        console.log('---');
+
         let README;
 
         try {
