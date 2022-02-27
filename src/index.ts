@@ -116,8 +116,8 @@ ${CONTENTS}---
 ${COPYRIGHT}`;
 
         let README;
-        
-        try  {
+
+        try {
             README = await client.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 owner: context.actor,
                 repo: context.payload.repository!.name,
@@ -190,7 +190,7 @@ function parseCODEOWNERS(s: string, owner: string) {
 
 }
 
-function parseLectureNotesContents(s: string) {
+export function parseLectureNotesContents(s: string) {
     const lines = s.split(/\r?\n/);
 
     let copyrightVersion = "";
@@ -208,26 +208,33 @@ function parseLectureNotesContents(s: string) {
         // Find other macros
         if (v.startsWith("\\newcommand{\\unitName}")) {
             UNIT_NAME = v.slice(23).split("}")[0];
+            // console.log('UNIT_NAME:', UNIT_NAME);
         } else if (v.startsWith("\\newcommand{\\unitTime}")) {
             let time = v.slice(23).split("}")[0];
             SEMESTER = parseInt(time[9]);
             YEAR = parseInt(time.slice(12));
+            // console.log('SEMESTER:', SEMESTER);
+            // console.log('YEAR:', YEAR);
         } else if (v.startsWith("\\newcommand{\\unitCoordinator}")) {
             UNIT_COORDINATOR = v.slice(30).split("}")[0];
+            // console.log('UNIT_COORDINATOR:', UNIT_COORDINATOR);
         } else if (v.startsWith("modifier={")) {
             copyrightModifier = v.slice(10).split("}")[0];
+            // console.log('copyrightModifier:', copyrightModifier);
         } else if (v.startsWith("version={")) {
             copyrightVersion = v.slice(9).split("}")[0];
+            // console.log('copyrightVersion:', copyrightVersion);
         } else if (v.startsWith("\\section{")) {
-            sections.push(v.slice(8).split("}")[0]);
+            sections.push(v.slice(9).split("}")[0]);
+            // console.log('SECTIONS:', v.slice(9).split("}")[0]);
         }
     });
 
-    if (copyrightModifier && copyrightVersion) {
+    if (copyrightModifier != '' && copyrightVersion != '') {
         COPYRIGHT = setCopyrightInformation(copyrightModifier, copyrightVersion);
-    } else if (copyrightModifier && !copyrightVersion) {
+    } else if (copyrightModifier != '' && copyrightVersion == '') {
         COPYRIGHT = setCopyrightInformation(copyrightModifier, "4.0");
-    } else if (!copyrightModifier && copyrightVersion) {
+    } else if (copyrightModifier == '' && copyrightVersion != '') {
         warning("No copyright modifier was set.");
         COPYRIGHT = "";
     } else {
