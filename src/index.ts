@@ -102,12 +102,13 @@ async function run() {
         }
 
         parseCODEOWNERS(CodeOwners.data.toString(), context.actor);
-
+        
         // TODO Add alternative if only exam notes are provided.
         if (LectureNotes == undefined)
             return error('Lecture notes returned undefined.');
 
-        let buffer = new Buffer(LectureNotes.data.toString());
+        let buffer = Buffer.from(LectureNotes.data.toString(), 'base64');
+        console.log(buffer.toString('base64'));
 
         parseLectureNotesContents(buffer.toString('base64'));
 
@@ -141,7 +142,7 @@ ${COPYRIGHT}`;
 
         let README;
 
-        let buffer2 = new Buffer(output)
+        let buffer2 = Buffer.from(output, 'base64');
 
         try {
             README = await client.request(
