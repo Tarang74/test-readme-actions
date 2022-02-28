@@ -23,6 +23,6 @@ jobs:
       #     run_install: true
 
       - name: README CI
-        uses: Tarang74/test-readme-actions@main
+        uses: Tarang74/test-readme-actions@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
