@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         uses: pnpm/action-setup@v2
         with:
-          version: 6.0.2
+          version: 6
           run_install: true
 
       - name: README CI
