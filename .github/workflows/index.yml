@@ -17,7 +17,7 @@ jobs:
           node-version: 17
 
       - run: npm ci
-      - run: ls
+      - run: ls node_modules
 
       - name: README CI
         uses: Tarang74/test-readme-actions@master
