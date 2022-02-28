@@ -1,4 +1,4 @@
-name: "README CI"
+name: "README CI test"
 description: "CI for README using TeX source code."
 author: "Tarang Janawalkar"
 
