@@ -17,7 +17,7 @@ jobs:
           node-version: 17
 
       - name: Install dependencies
-      - run: npm ci
+        uses: npm ci
 
       - name: README CI
         uses: Tarang74/test-readme-actions@master
