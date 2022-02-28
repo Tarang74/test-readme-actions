@@ -40,8 +40,8 @@ async function run() {
             .then((onfulfilled) => {
                 if (onfulfilled.status == 200) {
                     let buffer = Buffer.from(
-                        (onfulfilled.data as any).contents,
-                        (onfulfilled.data as any).encoding
+                        (onfulfilled as any).contents,
+                        (onfulfilled as any).encoding
                     );
                     LectureNotesContents = buffer.toString();
                 } else {
@@ -64,8 +64,8 @@ async function run() {
             .then((onfulfilled) => {
                 if (onfulfilled.status == 200) {
                     let buffer = Buffer.from(
-                        (onfulfilled.data as any).contents,
-                        (onfulfilled.data as any).encoding
+                        (onfulfilled as any).contents,
+                        (onfulfilled as any).encoding
                     );
                     ExamNotesContents = buffer.toString();
                 } else {
@@ -89,8 +89,8 @@ async function run() {
             .then((onfulfilled) => {
                 if (onfulfilled.status == 200) {
                     let buffer = Buffer.from(
-                        (onfulfilled.data as any).contents,
-                        (onfulfilled.data as any).encoding
+                        (onfulfilled as any).contents,
+                        (onfulfilled as any).encoding
                     );
                     CodeOwnersContents = buffer.toString();
                 } else {
