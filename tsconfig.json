@@ -11,6 +11,6 @@
 
         "strict": true
     },
-    "include": ["src/*.ts", "src/__tests__/test.ts"],
+    "include": ["src/*.ts"],
     "exclude": ["node_modules", "**/*.config.ts"]
 }
