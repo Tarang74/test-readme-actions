@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@2
+        uses: actions/checkout@v2
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
@@ -25,6 +25,6 @@ jobs:
         uses: actions/checkout@2
 
       - name: README CI
-        uses: Tarang74/test-readme-actions@master
+        uses: ./action.yml
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
