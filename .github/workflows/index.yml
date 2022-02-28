@@ -8,19 +8,19 @@ jobs:
   README-CI:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 17
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17
 
-      # - name: Install dependencies
-      #   uses: pnpm/action-setup@v2
-      #   with:
-      #     version: 6
-      #     run_install: true
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
+          run_install: true
 
       - name: README CI
         uses: Tarang74/test-readme-actions@master
