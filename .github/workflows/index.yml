@@ -11,13 +11,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
 
+      - uses: actions/github-script@master
+
       - name: Setup Node.js
         uses: actions/setup-node@master
         with:
           node-version: 17
 
       - run: npm ci
-      - run: ls node_modules
 
       - name: README CI
         uses: Tarang74/test-readme-actions@master
