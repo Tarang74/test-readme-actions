@@ -1,6 +1,7 @@
 {
   "name": "readme-ci-qut-notes",
   "version": "1.0.0",
+  "type": "module",
   "description": "Continuous Integration to update the README file for QUT Notes.",
   "main": "lib/index.js",
   "scripts": {
