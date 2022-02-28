@@ -27,66 +27,78 @@ async function run() {
 
         let LN = true;
         let EN = true;
+        let CO = true;
 
         // Look for lecture notes/exam notes files
-        await client.request(
-            'GET /repos/{owner}/{repo}/contents/{path}',
-            {
+        await client
+            .request('GET /repos/{owner}/{repo}/contents/{path}', {
                 owner: context.actor,
                 repo: context.payload.repository!.name,
-                path: `${context.payload.repository!.name
-                    } Lecture Notes.tex`,
+                path: `${context.payload.repository!.name} Lecture Notes.tex`,
                 ref: context.sha,
-            }
-        ).then(onfulfilled => {
-            let buffer = Buffer.from((onfulfilled.data as any).contents, (onfulfilled.data as any).encoding)
-            LectureNotesContents = buffer.toString();
-        }).catch(onrejected => {
-            LN = false;
-            warning(
-                `No lecture notes file was found. If this was unintended, please ensure that the file name has the following format:\n\t\`${context.payload.repository!.name
-                } Lecture Notes.tex\``
-            );
-        });
+            })
+            .then((onfulfilled) => {
+                if (onfulfilled.status == 200) {
+                    let buffer = Buffer.from(
+                        (onfulfilled.data as any).contents,
+                        (onfulfilled.data as any).encoding
+                    );
+                    LectureNotesContents = buffer.toString();
+                } else {
+                    LN = false;
+                    warning(
+                        `No lecture notes file was found. If this was unintended, please ensure that the file name has the following format:\n\t\`${
+                            context.payload.repository!.name
+                        } Lecture Notes.tex\``
+                    );
+                }
+            });
 
-        await client.request(
-            'GET /repos/{owner}/{repo}/contents/{path}',
-            {
+        await client
+            .request('GET /repos/{owner}/{repo}/contents/{path}', {
                 owner: context.actor,
                 repo: context.payload.repository!.name,
                 path: `${context.payload.repository!.name} Exam Notes.tex`,
                 ref: context.sha,
-            }
-        ).then(onfulfilled => {
-            let buffer = Buffer.from((onfulfilled.data as any).contents, (onfulfilled.data as any).encoding)
-            ExamNotesContents = buffer.toString();
-        }).catch(onrejected => {
-            EN = false;
-            warning(
-                `No exam notes file was found. If this was unintended, please ensure that the file name has the following format:\n\t\`${context.payload.repository!.name
-                } Exam Notes.tex\``
-            );
+            })
+            .then((onfulfilled) => {
+                if (onfulfilled.status == 200) {
+                    let buffer = Buffer.from(
+                        (onfulfilled.data as any).contents,
+                        (onfulfilled.data as any).encoding
+                    );
+                    ExamNotesContents = buffer.toString();
+                } else {
+                    EN = false;
+                    warning(
+                        `No exam notes file was found. If this was unintended, please ensure that the file name has the following format:\n\t\`${
+                            context.payload.repository!.name
+                        } Exam Notes.tex\``
+                    );
+                }
+            });
 
-        });
-
-        let CodeOwnersReturn = false;
         // Try to get CODEOWNERS file
-        await client.request(
-            'GET /repos/{owner}/{repo}/contents/{path}',
-            {
+        await client
+            .request('GET /repos/{owner}/{repo}/contents/{path}', {
                 owner: context.actor,
                 repo: context.payload.repository!.name,
-                path: `CODEOWNERS`,
+                path: 'CODEOWNERS',
                 ref: context.sha,
-            }
-        ).then(onfulfilled => {
-            let buffer = Buffer.from((onfulfilled.data as any).contents, (onfulfilled.data as any).encoding)
-            CodeOwnersContents = buffer.toString();
-        }).catch((onrejected) => {
-            CodeOwnersReturn = true;
-        })
+            })
+            .then((onfulfilled) => {
+                if (onfulfilled.status == 200) {
+                    let buffer = Buffer.from(
+                        (onfulfilled.data as any).contents,
+                        (onfulfilled.data as any).encoding
+                    );
+                    CodeOwnersContents = buffer.toString();
+                } else {
+                    CO = false;
+                }
+            });
 
-        if (CodeOwnersReturn) return error(`No CODEOWNERS file was provided in repository.`);
+        if (!CO) return error(`No CODEOWNERS file was provided in repository.`);
 
         if (!LN && !EN) {
             return error('No source files were found, ending workflow.');
@@ -127,24 +139,21 @@ ${CONTENTS}---
 ${COPYRIGHT}`;
 
         // Output to README.md
-        await client.request(
-            'PUT /repos/{owner}/{repo}/contents/{path}',
-            {
+        await client
+            .request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 owner: context.actor,
                 repo: context.payload.repository!.name,
                 path: 'README.md',
                 message: 'Automated README CI.',
-                content: output
-            }
-        ).then(onfulfilled => {
-            if (onfulfilled.status == 200) {
-                return info('Successfully updated README.md.');
-            } else if (onfulfilled.status == 201) {
-                return info('Successfully created README.md.');
-            }
-        }).catch(onrejected => {
-            return setFailed(onrejected);
-        });
+                content: output,
+            })
+            .then((onfulfilled) => {
+                if (onfulfilled.status == 200) {
+                    return info('Successfully updated README.md.');
+                } else if (onfulfilled.status == 201) {
+                    return info('Successfully created README.md.');
+                }
+            });
     } catch (error: any) {
         return setFailed(error.message);
     }
