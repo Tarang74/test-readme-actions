@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@main
 
-      - uses: actions/github-script@master
+      - uses: actions/github-script@main
 
       - name: Setup Node.js
-        uses: actions/setup-node@master
+        uses: actions/setup-node@main
         with:
           node-version: 17
 
