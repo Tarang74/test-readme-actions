@@ -23,6 +23,6 @@ jobs:
           run_install: true
 
       - name: README CI
-        uses: "lib/index.js"
+        run: "node lib/index.js"
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
