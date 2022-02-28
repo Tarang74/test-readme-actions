@@ -5,18 +5,24 @@ on:
     branches: [master]
 
 jobs:
-  README-CI:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@main
+      - name: Checkout
+        uses: actions/checkout@2.4.0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@main
-        with:
-          node-version: 17
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.0.0
 
       - run: npm ci
+      - run: npm run build
+      
+  README-CI:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@2.4.0
 
       - name: README CI
         uses: Tarang74/test-readme-actions@master
